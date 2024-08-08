@@ -15,13 +15,15 @@ def get_summary(partner_detail_id, tenant):
         # Fetch vendor rating details for the given partner_detail_id
         cursor.execute("""
             SELECT 
-                fill_rate, 
-                delivery_lead_time, 
-                damaged, 
-                near_expiry_item, 
-                pr_initiated 
+                po_fill_rate_qty_level, 
+                po_fill_rate_ucode_level,
+                on_time_delivery_rate, 
+                damaged_items_received, 
+                expired_near_expiry_items_received, 
+                pr_count,
+                perfect_order_rate 
             FROM vendor_rating 
-            WHERE partner_detail_id = %s AND tenant = %s
+            WHERE partner_detail_id = %s AND thea_id = %s
           """,  (partner_detail_id, tenant))
 
         result = cursor.fetchone()
@@ -31,19 +33,20 @@ def get_summary(partner_detail_id, tenant):
             return
 
         # Unpack the result
-        fill_rate_qty_level, delivery_lead_time, damaged, near_expiry_item, purchase_returns_initiated = result
+        po_fill_rate_qty_level, po_fill_rate_ucode_level, on_time_delivery_rate, damaged_items_received, expired_near_expiry_items_received, pr_count, perfect_order_rate = result
 
         # Use default values or provide the necessary ones for missing fields
-        fill_rate_ucode_level = fill_rate_qty_level  # Assuming these are the same, modify if needed
-        on_time_delivery_rate = "10"  # This should be fetched or passed as needed
-        perfect_order_rate = "7"  # This should be fetched or passed as needed
-        near_expiry_expired_items = near_expiry_item
-        damaged_items = damaged
-
+        fill_rate_ucode_level = po_fill_rate_ucode_level  # Assuming these are the same, modify if needed
+        on_time_delivery_rate = on_time_delivery_rate  # This should be fetched or passed as needed
+        perfect_order_rate = perfect_order_rate  # This should be fetched or passed as needed
+        near_expiry_expired_items = expired_near_expiry_items_received
+        damaged_items = damaged_items_received
+        po_fill_rate_qty_level = po_fill_rate_qty_level
+        purchase_returns_initiated = pr_count
         # Call gemini_integration with the query results
         html_content = gemini_integration(
-            fill_rate_qty_level, fill_rate_ucode_level, on_time_delivery_rate,
-            delivery_lead_time, perfect_order_rate, near_expiry_expired_items,
+            po_fill_rate_qty_level, fill_rate_ucode_level, on_time_delivery_rate,
+            perfect_order_rate, near_expiry_expired_items,
             damaged_items, purchase_returns_initiated, partner_detail_id, tenant
         )
 

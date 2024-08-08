@@ -6,7 +6,7 @@ from flask import url_for, Flask
 
 app = Flask(__name__)
 
-def gemini_integration(fill_rate_qty_level, fill_rate_ucode_level, on_time_delivery_rate, delivery_lead_time, perfect_order_rate, near_expiry_expired_items, damaged_items, purchase_returns_initiated, partner_detail_id, tenant):
+def gemini_integration(po_fill_rate_qty_level, fill_rate_ucode_level, on_time_delivery_rate, perfect_order_rate,  near_expiry_expired_items, damaged_items, purchase_returns_initiated, partner_detail_id, tenant):
     genai.configure(api_key='AIzaSyBNiA5tPaiwLqz72eYLlj_83TULNJkDYeU')
     model = genai.GenerativeModel('gemini-1.5-flash')
     # plot()
@@ -14,11 +14,10 @@ def gemini_integration(fill_rate_qty_level, fill_rate_ucode_level, on_time_deliv
     # Create the prompt string
     prompt = (
         f"Create a portfolio in low level English of the vendor to understand based on these facts: "
-        f"Fill Rate % at Qty Level is {fill_rate_qty_level}. "
+        f"Fill Rate % at Qty Level is {po_fill_rate_qty_level}. "
         f"Fill Rate % at UCode Level is {fill_rate_ucode_level}. "
-        f"On-Time Delivery Rate is {on_time_delivery_rate}. "
-        f"Delivery Lead Time is {delivery_lead_time}. "
         f"Perfect Order Rate is {perfect_order_rate}. "
+        f"On Time Delivery Rate is {on_time_delivery_rate}. "
         f"Near Expiry / Expired Items Received is {near_expiry_expired_items}. "
         f"Damaged Items Received is {damaged_items}. "
         f"Purchase Returns Initiated is {purchase_returns_initiated}."
@@ -58,7 +57,7 @@ def gemini_integration(fill_rate_qty_level, fill_rate_ucode_level, on_time_deliv
                     </div>
                 </div>
                 <div class="foot-container">
-                    {floating_image_url}
+                        {floating_image_url}
                 </div>
             </div>
         </body>

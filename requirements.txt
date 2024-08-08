@@ -21,3 +21,7 @@ tensorflow
 google-generativeai
 matplotlib
 datetime
+plotly
+PyYAML
+scikit-learn
+xgboost

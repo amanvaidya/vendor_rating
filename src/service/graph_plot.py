@@ -40,8 +40,8 @@ def plot(partner_detail_id, tenant):
 
         # Extracting data
         vendor_ratings = data["vendor_rating"]
-        fill_ratings = data["fill_rating"]
-        delivery_lead_time_rating = data["delivery_lead_time_rating"]
+        fill_ratings = data["fill_rating_qty_level"]
+        delivery_lead_time_rating = data["on_time_delivery_rating"]
         damaged_rating = data["damaged_rating"]
         near_expiry_rating = data["near_expiry_rating"]
 
@@ -57,10 +57,10 @@ def plot(partner_detail_id, tenant):
         vendor_values = [entry["rating"] for entry in vendor_ratings]
 
         fill_dates = [datetime.strptime(entry["date"], "%Y-%m-%d %H:%M:%S") for entry in fill_ratings]
-        fill_values = [entry["fill_rate"] for entry in fill_ratings]
+        fill_values = [entry["fill_rate_qty_level"] for entry in fill_ratings]
 
         delivery_lead_dates = [datetime.strptime(entry["date"], "%Y-%m-%d %H:%M:%S") for entry in delivery_lead_time_rating]
-        delivery_lead_values = [entry["delivery_lead_time"] for entry in delivery_lead_time_rating]
+        delivery_lead_values = [entry["on_time_delivery"] for entry in delivery_lead_time_rating]
 
         damaged_dates = [datetime.strptime(entry["date"], "%Y-%m-%d %H:%M:%S") for entry in damaged_rating]
         damaged_values = [entry["damaged"] for entry in damaged_rating]

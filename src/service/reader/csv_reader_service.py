@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 import sys
-
+from service.model_injestion_service import feed_data_to_model
 # Correct path to import db_connection
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..', 'sql')))
 
@@ -30,10 +30,10 @@ def insert_csv_data_to_db(data, connection):
 
     connection.commit()
     print("Data inserted successfully")
+    feed_data_to_model()
 
-if __name__ == "__main__":
-    # Hardcoded path to your CSV file
-    file_path = "/Users/amanvaidya/Desktop/sample.csv"
+def trigger_cron():
+    file_path = "/Users/amanvaidya/PycharmProjects/vendor_rating/src/service/vendor_performance_model/Hackeasy data v2 - Query result.csv"
     data = read_csv_file(file_path)
 
     if data is not None:
@@ -44,3 +44,8 @@ if __name__ == "__main__":
         if connection is not None:
             insert_csv_data_to_db(data, connection)
             close_connection(connection)
+
+
+# if __name__ == "__main__":
+#     trigger_cron()
+    # Hardcoded path to your CSV file

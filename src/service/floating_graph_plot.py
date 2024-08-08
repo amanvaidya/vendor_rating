@@ -35,8 +35,8 @@ def fetch_data(partner_detail_id, tenant):
 
         # Extracting data
         vendor_ratings = data["vendor_rating"]
-        fill_ratings = data["fill_rating"]
-        delivery_lead_time_rating = data["delivery_lead_time_rating"]
+        fill_ratings = data["fill_rating_qty_level"]
+        delivery_lead_time_rating = data["on_time_delivery_rating"]
         damaged_rating = data["damaged_rating"]
         near_expiry_rating = data["near_expiry_rating"]
         pr_initiated_rating = data["pr_initiated_rating"]
@@ -52,11 +52,11 @@ def fetch_data(partner_detail_id, tenant):
         # Extracting dates and values
         dates = [datetime.strptime(entry["date"], "%Y-%m-%d %H:%M:%S") for entry in vendor_ratings]
         vendor_values = [entry["rating"] for entry in vendor_ratings]
-        fill_values = [entry["fill_rate"] for entry in fill_ratings]
-        delivery_lead_values = [entry["delivery_lead_time"] for entry in delivery_lead_time_rating]
+        fill_values = [entry["fill_rate_qty_level"] for entry in fill_ratings]
+        delivery_lead_values = [entry["on_time_delivery"] for entry in delivery_lead_time_rating]
         damaged_values = [entry["damaged"] for entry in damaged_rating]
         near_expiry_values = [entry["near_expiry"] for entry in near_expiry_rating]
-        pr_initiated_values = [entry["pr_initiated"] for entry in pr_initiated_rating]
+        pr_initiated_values = [entry["pr_count"] for entry in pr_initiated_rating]
 
         return dates, vendor_values, fill_values, delivery_lead_values, damaged_values, near_expiry_values, pr_initiated_values
 
