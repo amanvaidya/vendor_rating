@@ -75,7 +75,7 @@ def plot_data(partner_detail_id, tenant):
     fig = make_subplots(
         rows=1, cols=6,
         subplot_titles=(
-            "Vendor Rating", "Fill Rating", "Delivery Lead Time Rating",
+            "Vendor Rating", "Fill Rating", "Delivery Lead Time",
             "Damaged Rating", "Near Expiry Rating", "PR Initiated Rating"
         ),
         shared_xaxes=True,
